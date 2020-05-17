@@ -1,7 +1,7 @@
 # Compiled source #
 ###################
-.rds
-.RData
+*.rds
+*.RData
 
 # OS generated files #
 ######################
