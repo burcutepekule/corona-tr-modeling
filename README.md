@@ -78,7 +78,7 @@ dR<sub>c</sub>(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>
 ## Veri oturtma 
 
 - Sinyaller uzerindeki hata Negatif Binomial dagilimina gore modellenir, sacilim parametresi her sinyale ozel olarak kestirilir.
-- Toplam yerine gunluk veri noktalarinin kullanilmasinin sebebi korele olmayan bir sinyal elde etmektir.
+- Toplam yerine gunluk veri noktalarinin kullanilmasinin sebebi korele olmayan veri noktalari elde etmektir.
 - Verilerin oturtulmasi surecinde Hamilton MCMC algoritmasi kullanilmistir.
 
 ## Kod dosyalari
