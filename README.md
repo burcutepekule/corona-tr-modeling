@@ -82,5 +82,23 @@ dR<sub>c</sub>(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>
 - Toplam yerine gunluk veri noktalarinin kullanilmasinin sebebi korele olmayan bir sinyal elde etmektir.
 - Verilerin oturtulmasi surecinde Hamilton MCMC algoritmasi kullanilmistir.
 
+## Kod dosyalari
+
+- Kosulmasi gereken ana kod dosyasi : ``model_fitting.R``. 
+- Verinin on islenmesi icin kosulan kod dosyasi : ``prepare_data.R``. 
+- Gerekli fonksiyonlarin cagirildigi kod dosyasi : ``setup.R``. 
+- MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains.R``. 
+- Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots.R``. 
+
+## Kullanim
+
+- Model ciktilarinin elde edilmesi, gorsellestirilmesi, ve MCMC sonuclarinin analizi icin yalnizca ``model_fitting.R`` dosyasinin kosulmasi yeterlidir. Bu kod dosyasi ``~/DATA`` alt klasorunden ``~/CORONA_TR.csv`` adli Turkiye COVID-19 verilerinin tutuldugu csv dosyasini okuyarak veriyi modele oturtur.
+
+- Model ciktilari kodlarin kosuldugu gunde gore isimlendirilen alt klasore ``~/OUT_<gun>_<ay>_<yil>`` adi altinda kaydedilir. Bu klasorun altinda 3 alt klasor daha olusturulur (``~/CSVS``, ``~/FIGS``, ``~/RDATA``) ve model ciktilari turlerine ait olan klasorlere kaydedilir.  
+
+- Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
+
+
+
 
 
