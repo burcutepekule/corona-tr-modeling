@@ -1,0 +1,9 @@
+# Compiled source #
+###################
+*.com
+
+
+# OS generated files #
+######################
+.rds
+.RData
