@@ -1,9 +1,10 @@
 # Compiled source #
 ###################
-*.com
-
+.rds
+.RData
 
 # OS generated files #
 ######################
-.rds
-.RData
+.DS_Store
+.DS_Store?
+._*
