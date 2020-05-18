@@ -79,6 +79,7 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - Gerekli fonksiyonlarin cagirildigi kod dosyasi : ``setup.R``. 
 - MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains.R``. 
 - Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots.R``. 
+- Gunluk vaka ve seri aralik dagilimi kullanilarak efektif R'in hesaplandigi kod dosyasi : ``analysis_RE.R``. 
 
 ## Kullanim
 
@@ -90,8 +91,17 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 
 ## Projeksiyonlar
 
+### Populasyon Degerleri
 ### Son Guncellenme Tarihi : 17 Mayis 2020
 ![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/figure_all_mrelax_0.png)
+
+## Efektif R
+Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki icerisindeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
+
+Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
+
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/RE_estimate.png)
+
 
 
 
