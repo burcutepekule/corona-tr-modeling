@@ -26,33 +26,22 @@ data_control_2 = ymd("2020-04-03") # second lockdown (assuming 2 lockdowns)
 date_control_2 = ymd("2020-04-03")
 date_control_3 = ymd("2020-03-21") # mid lockdown (assuming 1 lockdown)
 data_control_3 = ymd("2020-03-21")
+date_relax     = ymd("2020-05-11") # relaxation (if any)
 
-test_data_all = as.numeric(unlist(test_data_all))
-test_data_all = test_data_all/max(test_data_all)
+test_data_all   = as.numeric(unlist(test_data_all))
+test_data_all_N = test_data_all/max(test_data_all)
+recov_data_all  = as.numeric(unlist(recov_data_all))
+recov_data_all_N= recov_data_all/max(recov_data_all)
+
 x_all = seq(from=1,to=length(allDates))
 
-# myts  = ts(test_data_all, start=data_start+1, end=data_end, frequency=1)
-# splines
-# fcast = splinef(myts,h=5,  method = c("gcv", "mle"))
-# plot(fcast)
 
-# fit = arima(myts, order=c(1, 5, 5))
-# plot(forecast(fit, 5))          
+# fit to lognormal function
+fit_1  = nls(test_data_all_N ~ K*(1/(x_all*sig*sqrt(2*pi)))*exp(-((log(x_all)-mu)/(sqrt(2)*sig))^2), data = data.frame(x_all, test_data_all_N),
+           start = c(K = 70, mu = 4, sig=0.5))
+test_fit_vec_1=as.numeric(coef(fit_1))
+# plot(fitted(fit_1))
 
-# fit third degree polynomial to test capacity (other option)
-fit = lm(test_data_all ~ poly(x_all,3))
-test_fit_vec=as.numeric(unlist(fit$coefficients))
-# plot(fitted(fit))
-# points(test_data_all,col="red")
-# points(as.numeric(unlist(recov_data_all/max(recov_data_all))),col="blue")
-
-# plot(as.numeric(unlist(recov_data_all/max(recov_data_all))))
-# fit logistic func to test capacity
-# fit  = nls(test_data_all ~ SSlogis(x_all, Asym, xmid, scal), data = data.frame(x_all, test_data_all))
-# xmid = round(summary(fit)$parameters[2,3]);
-# date_testcap   = ymd(allDates[xmid]) # increase in the test capacity
-
-date_relax     = ymd("2020-06-01") # relaxation (if any)
 cases_data  = cases_data_all;
 deaths_data = deaths_data_all;
 icu_data    = icu_data_all;

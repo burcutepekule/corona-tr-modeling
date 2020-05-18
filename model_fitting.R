@@ -29,15 +29,13 @@ data_list = list(
   trelax=as.numeric(date_relax-date_data+1),
   r_end=1,
   m_relax=m_relax_in/100, 
-  p1 = test_fit_vec[1],
-  p2 = test_fit_vec[2],
-  p3 = test_fit_vec[3],
-  p4 = test_fit_vec[4],
+  K   = test_fit_vec_1[1],
+  mu  = test_fit_vec_1[2],
+  sig = test_fit_vec_1[3],
   D=as.numeric(date_end-date_data+1),
   k_daily_cases  = daily_cases_data,
   k_icu          = icu_data,
   k_daily_deaths = daily_deaths_data,
-  k_daily_recov  = recov_data,
 
   p_pi        = c(1,999),
   p_R0        = c(3,1),
@@ -48,11 +46,8 @@ data_list = list(
   p_eps_H_ICU = c(2,3),
   p_eps_H_x   = c(2,10),
   p_eps_ICU_x = c(2,10),
-  p_eps_H     = c(2,3),
   p_r_d_s     = c(2,10),
   p_r_d_a     = c(2,10),
-  p_r_r_s     = c(1,1),
-  p_r_r_a     = c(1,1),
   p_r_lock_1  = c(1,1),
   p_phi       = 1/100,
 
@@ -76,7 +71,6 @@ T_modelTR      = sampling(M_model_TR,data = data_list,warmup=150,iter=500,chains
 ####### FITTING - LONG VERSION
 # T_modelTR      = sampling(M_model_TR,data = data_list,warmup=500,iter=1500,chains=8,init="random")
 save(T_modelTR, file =paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
-
 source("analysis_plots.R")
 source("analysis_chains.R")
 

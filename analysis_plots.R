@@ -1,16 +1,16 @@
-pp = c("fitted_k_daily_cases","fitted_k_daily_deaths","fitted_k_icu","fitted_k_daily_recov")
+pp = c("fitted_k_daily_cases","fitted_k_daily_deaths","fitted_k_icu")
 model_output_fitted = summary(T_modelTR,pp)[[1]] %>%
   tbl_df() %>%
-  mutate(t=rep(1:data_list$D,4),
+  mutate(t=rep(1:data_list$D,3),
          date=date_data+t-1,
          eta="-100%",
          type=rep(pp,each=data_list$D)) %>%
   mutate(populasyon=factor(type,levels=pp,
-                           labels=c("Gunluk Vaka Sayisi","Gunluk Vefat Sayisi","Yogun Bakim Hasta Sayisi","Gunluk Iyilesen Sayisi")))
+                           labels=c("Gunluk Vaka Sayisi","Gunluk Vefat Sayisi","Yogun Bakim Hasta Sayisi")))
 
-agg_data         = tibble(allDates_agg,daily_cases_data,daily_deaths_data,icu_data,recov_data);
-observed_data    = c(daily_cases_data,daily_deaths_data,icu_data,recov_data);
-observed_dates   = c(allDates_agg,allDates_agg,allDates_agg,allDates_agg);
+agg_data         = tibble(allDates_agg,daily_cases_data,daily_deaths_data,icu_data);
+observed_data    = c(daily_cases_data,daily_deaths_data,icu_data);
+observed_dates   = c(allDates_agg,allDates_agg,allDates_agg);
 agg_data_all     = tibble(all_dates=observed_dates,all_data=observed_data,populasyon=model_output_fitted$populasyon);
 # # 
 ggplot() +
@@ -29,18 +29,18 @@ ggplot() +
 ggsave(paste0(path2save,"/FIGS/figure_fit_rc_",data_list$r_c,"_mrelax_",m_relax_in,".png"),width = 10, height = 5)
 
 parameterSummary = summary(T_modelTR, c("R0", "r_lock_1","gamma_s","gamma_H","gamma_ICU","eps_H_ICU",
-                                        "eps_H_x","eps_ICU_x","eps_H","r_d_s","r_d_a","r_r_s","r_r_a"), probs = c(0.025, 0.25, 0.50, 0.75, 0.975))
+                                        "eps_H_x","eps_ICU_x","r_d_s","r_d_a"), probs = c(0.025, 0.25, 0.50, 0.75, 0.975))
 write.table(parameterSummary$summary, file = paste0(path2save,"/CSVS/parameters_fit_mrelax_",m_relax_in,".csv"))
 
-pp3 = c("predicted_daily_cases","predicted_daily_deaths","predicted_current_icu","predicted_daily_recov")
+pp3 = c("predicted_daily_cases","predicted_daily_deaths","predicted_current_icu")
 model_output_all = summary(T_modelTR,pp3)[[1]] %>%
   tbl_df() %>%
-  mutate(t=rep(1:data_list$S,4),
+  mutate(t=rep(1:data_list$S,3),
          date=date_data+t-1,
          eta="-100%",
          type=rep(pp3,each=data_list$S)) %>%
   mutate(populasyon=factor(type,levels=pp3,
-                           labels=c("Gunluk Vaka Sayisi","Gunluk Vefat Sayisi","Yogun Bakim Hasta Sayisi","Gunluk Iyilesen Sayisi")))
+                           labels=c("Gunluk Vaka Sayisi","Gunluk Vefat Sayisi","Yogun Bakim Hasta Sayisi")))
 
 write.table(model_output_all, file = paste0(path2save,"/CSVS/output_all_mrelax_",m_relax_in,".csv"))
 
@@ -85,3 +85,4 @@ ggplot() +
   labs(x="Gun",y="Re")
 # scale_y_continuous(trans = 'log10')
 ggsave(paste0(path2save,"/FIGS/figure_Re_mrelax_",m_relax_in,".png"),width = 8, height = 3)
+
