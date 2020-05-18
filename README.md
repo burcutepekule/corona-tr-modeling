@@ -11,7 +11,7 @@
 | ICU | (Intensive Care Unit) Yogun bakimdaki bireyler. | 
 | R | (Recovered) Iyilesmis ve bagisiklik kazanmis toplam birey sayisi. | 
 | X | Vefat etmis toplam birey sayisi. | 
-| C | Toplam vaka sayisi (semptomatik + semptomatik) | 
+| C | Toplam vaka sayisi (semptomatik + asemptomatik) | 
 
 ## Parametreler
 
