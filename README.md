@@ -97,6 +97,12 @@ dR<sub>c</sub>(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>
 
 - Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
 
+## Projeksiyonlar
+
+### Son Guncellenme Tarihi : 17 Mayis 2020
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/figure_all_mrelax_0.png)
+
+
 
 
 
