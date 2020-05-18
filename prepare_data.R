@@ -29,14 +29,15 @@ test_data_all = as.numeric(unlist(test_data_all))
 test_data_all = test_data_all/max(test_data_all)
 x_all = seq(from=1,to=length(allDates))
 
-# fit second degree polynomial to test capacity
-model = lm(test_data_all ~ poly(x_all,3))
-test_fit_vec=as.numeric(unlist(model$coefficients))
+# fit second degree polynomial to test capacity (other option)
+# fit = lm(test_data_all ~ poly(x_all,3))
+# test_fit_vec=as.numeric(unlist(fit$coefficients))
+# plot(fit)
 
 # fit logistic func to test capacity
-# fit  = nls(test_data_all ~ SSlogis(x_all, Asym, xmid, scal), data = data.frame(x_all, test_data_all))
-# xmid = round(summary(fit)$parameters[2,3]);
-# date_testcap   = ymd(allDates[xmid]) # increase in the test capacity
+fit  = nls(test_data_all ~ SSlogis(x_all, Asym, xmid, scal), data = data.frame(x_all, test_data_all))
+xmid = round(summary(fit)$parameters[2,3]);
+date_testcap   = ymd(allDates[xmid]) # increase in the test capacity
 
 date_relax     = ymd("2020-06-01") # relaxation (if any)
 cases_data  = cases_data_all;

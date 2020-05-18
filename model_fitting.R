@@ -10,7 +10,7 @@ dir.create(paste0(path2save,"/RDATA/"))
 args <- commandArgs(TRUE)
 print(args)
 
-m_relax_in = 0 # slope of relaxation
+m_relax_in = 0 # slope of relaxation -> if 0, no relaxation
 
 library(rstan)
 library(zoo)
@@ -29,10 +29,7 @@ data_list = list(
   trelax=as.numeric(date_relax-date_data+1),
   r_end=1,
   m_relax=m_relax_in/100, 
-  p1=test_fit_vec[1],
-  p2=test_fit_vec[2],
-  p3=test_fit_vec[3],
-  p4=test_fit_vec[4],
+  tasymp=as.numeric(date_testcap-date_data+1),
   D=as.numeric(date_end-date_data+1),
   k_daily_cases  = daily_cases_data,
   k_icu          = icu_data,
@@ -54,6 +51,7 @@ data_list = list(
   p_r_r_s     = c(1,1),
   p_r_r_a     = c(1,1),
   p_r_lock_1  = c(1,1),
+  p_r_test    = c(1,1),
   p_phi       = 1/100,
 
   t0=0,
@@ -65,13 +63,16 @@ data_list = list(
   
   r_c=0 #dummy control
 )
-# # IF .rds not compiled (run in case of change in model)
+# # IF .rds NOT compiled (run in case of change in model)
 M_model_TR     = stan_model("MODELS/model_TR.stan")
+# # IF .rds  compiled 
 # M_model_TR = readRDS("MODELS/model_TR.rds")
-####### DEBUG MODE
-T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
-####### FITTING
-T_modelTR      = sampling(M_model_TR,data = data_list,warmup=150,iter=300,chains=8,init="random")
+####### FITTING - DEBUG MODE
+# T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
+####### FITTING - SHORT VERSION
+# T_modelTR      = sampling(M_model_TR,data = data_list,warmup=50,iter=150,chains=8,init="random")
+####### FITTING - LONG VERSION
+T_modelTR      = sampling(M_model_TR,data = data_list,warmup=500,iter=1500,chains=8,init="random")
 save(T_modelTR, file =paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
 
 source("analysis_plots.R")
