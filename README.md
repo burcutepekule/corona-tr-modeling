@@ -52,7 +52,7 @@ Bulastirma carpani (coeff<sub>R</sub>(t)) : Zamana bagli bulastirma katsayisi ca
 Karantina durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>lock</sub>(t)<br/>
 Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 
-Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lojistik bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
+Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli ucuncu dereceden bir polinom olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
 
 ## Diferansiyel Denklemler
 
