@@ -12,9 +12,6 @@
 | R | (Recovered) Iyilesmis ve bagisiklik kazanmis toplam birey sayisi. | 
 | X | Vefat etmis toplam birey sayisi. | 
 | C | Toplam vaka sayisi (semptomatik + semptomatik) | 
-| C<sub>1</sub> | Toplam vaka sayisi (eve gonderilmis, semptomatik) | 
-| C<sub>2</sub> | Toplam vaka sayisi (eve gonderilmis,asemptomatik) | 
-| R<sub>c</sub> | Kaydedidilen toplam iyilesen sayisi | 
 
 ## Parametreler
 
@@ -29,14 +26,11 @@
 | 1/γ<sub>s</sub> | Bulastiricilik suresi | 
 | 1/γ<sub>H</sub> | Hastanede (servis) kalma suresi | 
 | 1/γ<sub>ICU</sub> | ICU da kalma suresi | 
-| ε<sub>H</sub> | Tanisi konan semptomatiklerin hasteneye kaldirilma orani | 
 | ε<sub>H2I</sub> | Sevisten ICU'ya transfer orani | 
 | ε<sub>H2x</sub> | Servisten vefat orani | 
 | ε<sub>I2x</sub> | ICU'dan vefat orani | 
-| r<sub>d</sub><sup>s</sup>| Semptomatiklerin detekte edilme orani | 
-| r<sub>d</sub><sup>a</sup>| Asemptomatiklerin detekte edilme orani | 
-| r<sub>r</sub><sup>s</sup>| Detekte edilmis semptomatiklerin iyilesme orani |  
-| r<sub>r</sub><sup>a</sup>| Detekte edilmis asemptomatiklerin iyilesme orani |  
+| r<sub>d</sub><sup>s</sup>| Semptomatiklerin detekte edilme orani (hastaneye kaldirildiklari varsayilir) | 
+| r<sub>d</sub><sup>a</sup>| Asemptomatiklerin detekte edilme orani (hastaneye kaldirilmadiklari varsayilir)| 
 
 
 ## Yardimci Fonksiyonlar
@@ -52,28 +46,25 @@ Bulastirma carpani (coeff<sub>R</sub>(t)) : Zamana bagli bulastirma katsayisi ca
 Karantina durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>lock</sub>(t)<br/>
 Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 
-Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli ucuncu dereceden bir polinom olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
+Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
 
 ## Diferansiyel Denklemler
 
 dS(t) / dt    = - coeff<sub>R</sub>(t)R<sub>0</sub>γ<sub>s</sub>S(t)I(t)<br/>
 dE(t) / dt    = + coeff<sub>R</sub>(t)R<sub>0</sub>γ<sub>s</sub>S(t)I(t) - τE<br/>
 dI(t) / dt    = + τE - γ<sub>s</sub>I(t) <br/>
-dH(t) / dt    = + ε<sub>H</sub>r<sub>d</sub><sup>s</sup>γ<sub>s</sub>I(t) - γ<sub>H</sub>H(t) <br/>
+dH(t) / dt    = + r<sub>d</sub><sup>s</sup>γ<sub>s</sub>I(t) - γ<sub>H</sub>H(t) <br/>
 dICU(t) / dt  = + γ<sub>H</sub>ε<sub>H2I</sub>H(t) - γ<sub>ICU</sub> ICU(t) <br/>
-dR(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>)H(t) + γ<sub>ICU</sub>(1-ε<sub>I2x</sub>)ICU(t) + (1-ε<sub>H</sub>r<sub>d</sub><sup>s</sup>)γ<sub>s</sub>I(t) <br/>
+dR(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>)H(t) + γ<sub>ICU</sub>(1-ε<sub>I2x</sub>)ICU(t) + (1-r<sub>d</sub><sup>s</sup>)γ<sub>s</sub>I(t) <br/>
 dX(t) / dt    = + γ<sub>H</sub>ε<sub>H2x</sub>H(t) +  γ<sub>ICU</sub>ε<sub>I2x</sub>ICU(t) <br/>
-dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><sup>a</sup>)γ<sub>s</sub>I(t) <br/>
-dC<sub>1</sub>(t) / dt    = + r<sub>d</sub><sup>s</sup>(1-ε<sub>H</sub>)γ<sub>s</sub>I(t) <br/>
-dC<sub>2</sub>(t) / dt    = + r<sub>test</sub>(t)r<sub>d</sub><sup>a</sup>γ<sub>s</sub>I(t) <br/>
-dR<sub>c</sub>(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>)H(t)+ γ<sub>ICU</sub>(1-ε<sub>I2x</sub>)ICU(t)+r<sub>r</sub><sup>s</sup>C<sub>1</sub>+r<sub>r</sub><sup>a</sup>C<sub>2</sub> <br/>
+dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><sup>a</sup>)γ<sub>s</sub>I(t)<br/>
 
 ## Parametre kestirimi icin kullanilan sinyaller
 
 - Gunluk vaka sayisi toplam vaka sayisi kompartmaninin (C(t)) birinci turevine (Gunluk C(t)) oturtulur. <br/>
 - Gunluk vefat sayisi toplam vefat sayisi kompartmaninin (X(t)) birinci turevine (Gunluk X(t)) oturtulur. <br/>
 - Yogun bakimdaki hasta sayisi ICU kompartmanina oturtulur. <br/>
-- Gunluk iyilesen sayisi kaydi tutulan toplam iyilesen sayisi kompartmaninin (R<sub>c</sub>(t)) birinci turevine (Gunluk R<sub>c</sub>(t)) oturtulur. <br/>
+- Gunluk iyilesen sayisinin kaydinin nasil tutulduguna dair tam bir bilgi(m) olmadigi icin simdilik parametre kestirimine dahil edilmemistir. 
 
 ## Veri oturtma 
 
