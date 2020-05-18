@@ -52,7 +52,7 @@ Bulastirma carpani (coeff<sub>R</sub>(t)) : Zamana bagli bulastirma katsayisi ca
 Karantina durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>lock</sub>(t)<br/>
 Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 
-Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lojistik bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
+Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli ucuncu dereceden bir polinom olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler.
 
 ## Diferansiyel Denklemler
 
@@ -96,6 +96,12 @@ dR<sub>c</sub>(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>
 - Model ciktilari kodlarin kosuldugu gunde gore isimlendirilen alt klasore ``~/OUT_<gun>_<ay>_<yil>`` adi altinda kaydedilir. Bu klasorun altinda 3 alt klasor daha olusturulur (``~/CSVS``, ``~/FIGS``, ``~/RDATA``) ve model ciktilari turlerine ait olan klasorlere kaydedilir.  
 
 - Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
+
+## Projeksiyonlar
+
+### Son Guncellenme Tarihi : 17 Mayis 2020
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/figure_all_mrelax_0.png)
+
 
 
 
