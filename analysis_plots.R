@@ -26,7 +26,7 @@ ggplot() +
   geom_point(data=agg_data_all,aes(x=all_dates,y=all_data,fill=populasyon),shape=21,size=2,colour = "black", fill = "white") +
   labs(x="Gun",y="Birey Sayisi")
 # scale_y_continuous(trans = 'log10')
-ggsave(paste0(path2save,"/FIGS/figure_fit_rc_",data_list$r_c,"_mrelax_",m_relax_in,".png"),width = 10, height = 5)
+ggsave(paste0(path2save,"/FIGS/figure_fit_mrelax_",m_relax_in,".png"),width = 10, height = 5)
 
 parameterSummary = summary(T_modelTR, c("R0", "r_lock_1","gamma_s","gamma_H","gamma_ICU","eps_H_ICU",
                                         "eps_H_x","eps_ICU_x","r_d_s","r_d_a"), probs = c(0.025, 0.25, 0.50, 0.75, 0.975))
