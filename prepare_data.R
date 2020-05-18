@@ -3,6 +3,9 @@ setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 source("setup.R")
 library(anytime)
 library(readr)
+library(splines)
+library(forecast)
+
 
 # load the data 
 data_all         = (read.csv("DATA/CORONA_TR.csv") %>% tbl_df())
@@ -24,20 +27,30 @@ date_control_2 = ymd("2020-04-03")
 date_control_3 = ymd("2020-03-21") # mid lockdown (assuming 1 lockdown)
 data_control_3 = ymd("2020-03-21")
 
-
 test_data_all = as.numeric(unlist(test_data_all))
 test_data_all = test_data_all/max(test_data_all)
 x_all = seq(from=1,to=length(allDates))
 
-# fit second degree polynomial to test capacity (other option)
-# fit = lm(test_data_all ~ poly(x_all,3))
-# test_fit_vec=as.numeric(unlist(fit$coefficients))
-# plot(fit)
+# myts  = ts(test_data_all, start=data_start+1, end=data_end, frequency=1)
+# splines
+# fcast = splinef(myts,h=5,  method = c("gcv", "mle"))
+# plot(fcast)
 
+# fit = arima(myts, order=c(1, 5, 5))
+# plot(forecast(fit, 5))          
+
+# fit third degree polynomial to test capacity (other option)
+fit = lm(test_data_all ~ poly(x_all,3))
+test_fit_vec=as.numeric(unlist(fit$coefficients))
+# plot(fitted(fit))
+# points(test_data_all,col="red")
+# points(as.numeric(unlist(recov_data_all/max(recov_data_all))),col="blue")
+
+# plot(as.numeric(unlist(recov_data_all/max(recov_data_all))))
 # fit logistic func to test capacity
-fit  = nls(test_data_all ~ SSlogis(x_all, Asym, xmid, scal), data = data.frame(x_all, test_data_all))
-xmid = round(summary(fit)$parameters[2,3]);
-date_testcap   = ymd(allDates[xmid]) # increase in the test capacity
+# fit  = nls(test_data_all ~ SSlogis(x_all, Asym, xmid, scal), data = data.frame(x_all, test_data_all))
+# xmid = round(summary(fit)$parameters[2,3]);
+# date_testcap   = ymd(allDates[xmid]) # increase in the test capacity
 
 date_relax     = ymd("2020-06-01") # relaxation (if any)
 cases_data  = cases_data_all;

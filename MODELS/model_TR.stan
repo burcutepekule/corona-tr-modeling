@@ -5,18 +5,19 @@ functions {
   real switch_relax(real t, real t_relax, real r_relax, real r_end, real m_relax) {
     return(r_relax+1./(1/(r_end-r_relax)+exp(-m_relax*(t-t_relax-(6*(1/m_relax)*(1-m_relax)+1/m_relax)))));
   }
-  real switch_asymp(real t, real t_test, real r_test, real shift_test, real m_test) {
-    return(r_test+1./(1/(1-r_test)+exp(-m_test*(t-t_test-shift_test))));
-  }
-  // THIS IS FOR POLYNOMIAL FIT
-  // real switch_asymp(real t, real p1, real p2, real p3, real p4) {
-  //   real out; 
-  //   out = p4*t^3 + p3*t^2 + p2*t + p1;
-  //   if(out<0){
-  //     out=0;
-  //   }
-  //   return(out);
+  // THIS IS FOR LOGISTIC FIT
+  // real switch_asymp(real t, real t_test, real r_test, real shift_test, real m_test) {
+  //   return(r_test+1./(1/(1-r_test)+exp(-m_test*(t-t_test-shift_test))));
   // }
+  // THIS IS FOR POLYNOMIAL FIT
+  real switch_asymp(real t, real p1, real p2, real p3, real p4) {
+    real out;
+    out = p4*t^3 + p3*t^2 + p2*t + p1;
+    if(out<0){
+      out=0;
+    }
+    return(out);
+  }
   
   real[] SEIR(real t,
   real[] y,
@@ -28,11 +29,10 @@ functions {
     real trelax    = x_r[2];
     real r_end     = x_r[3];
     real m_relax   = x_r[4]; //
-    real tasymp    = x_r[5];
-    // real p1        = x_r[5];
-    // real p2        = x_r[6];
-    // real p3        = x_r[7];
-    // real p4        = x_r[8];
+    real p1        = x_r[5];
+    real p2        = x_r[6];
+    real p3        = x_r[7];
+    real p4        = x_r[8];
     int  r_c       = x_i[1]; //the only fixed integer is the reduction in inf due to being chronic
     real p_tswitch_1;
     real p_relax;
@@ -78,14 +78,11 @@ functions {
     r_r_s       = theta[13];
     r_r_a       = theta[14];
     r_lock_1    = theta[15];
-    r_test      = theta[16];
-    shift_lock_1= theta[17];
-    shift_test  = theta[18];
-    m_lock_1    = theta[19];
-    m_test      = theta[20];
+    shift_lock_1= theta[16];
+    m_lock_1    = theta[17];
 
     p_tswitch_1 = switch_lock(t,tswitch_1,r_lock_1,shift_lock_1,m_lock_1);
-    p_asymp     = switch_asymp(t,tasymp,r_test,shift_test,m_test);
+    p_asymp     = switch_asymp(t,p1,p2,p3,p4);
     
     if(m_relax>0){ //m_relax=0 no relaxation
     p_relax   = switch_relax(t,trelax,r_lock_1,r_end,m_relax);
@@ -140,7 +137,10 @@ data {
   real trelax;
   real r_end;
   real m_relax; // real gamma_c;
-  real tasymp;
+  real p1;
+  real p2;
+  real p3;
+  real p4;
   int D; // number of days with reported incidence
   int k_daily_cases[D];
   int k_icu[D];
@@ -163,7 +163,6 @@ data {
   real p_r_r_s[2];
   real p_r_r_a[2];
   real p_r_lock_1[2];
-  real p_r_test[2];
   real p_phi;
   
   // Simulation
@@ -179,18 +178,17 @@ data {
 }
 
 transformed data {
-  real x_r[5]; 
+  real x_r[8]; 
   int x_i[1]; // this is for r_c
   real init[11] = rep_array(1e-9,11); // initial values -> this is for speed, keep it like that
   x_r[1] = tswitch_1;
   x_r[2] = trelax;
   x_r[3] = r_end;
   x_r[4] = m_relax;// x_r[6] = gamma_c;
-  x_r[5] = tasymp;
-  // x_r[5] = p1;
-  // x_r[6] = p2;
-  // x_r[7] = p3;
-  // x_r[8] = p4;
+  x_r[5] = p1;
+  x_r[6] = p2;
+  x_r[7] = p3;
+  x_r[8] = p4;
   x_i[1] = r_c;
 }
 
@@ -210,17 +208,13 @@ parameters{
   real<lower=0, upper=1> r_r_s;
   real<lower=0, upper=1> r_r_a;
   real<lower=0, upper=1> r_lock_1;
-  real<lower=0, upper=1> r_test;
   real<lower=0, upper=1> m_lock_raw_1; // slope of quarantine implementation
-  real<lower=0, upper=1> m_test_raw; // slope of test implementation
   real<lower=0> shift_lock_1; // shift of quarantine implementation
-  real<lower=0> shift_test; // shift of test implementation
   real<lower=1> phi[4]; // dispersion parameters
 }
 transformed parameters {
   real m_lock_1 = m_lock_raw_1+0.5;
-  real m_test   = m_test_raw+0.05; // not sure if necessary
-  real theta[20]; // vector of parameters
+  real theta[17]; // vector of parameters
   real y[D,11]; // raw ODE output
   vector[D] output_ICU;
   vector[D] output_cumC;
@@ -234,8 +228,8 @@ transformed parameters {
   
   theta = {pi,R0,tau,gamma_s,gamma_H,gamma_ICU,eps_H_ICU,eps_H_x,
   eps_ICU_x,eps_H,r_d_s,r_d_a,r_r_s,r_r_a,
-  r_lock_1,r_test,shift_lock_1,shift_test,
-  m_lock_1,m_test};
+  r_lock_1,shift_lock_1,
+  m_lock_1};
   // run ODE solver
   y = integrate_ode_bdf(
     SEIR, // ODE function
@@ -279,9 +273,7 @@ model {
   r_lock_1 ~ beta(p_r_lock_1[1],p_r_lock_1[2]);
   phi ~ exponential(p_phi);
   m_lock_raw_1 ~ beta(1,1); 
-  m_test_raw ~ beta(1,1); 
   shift_lock_1 ~ exponential(1/15.0);
-  shift_test ~ exponential(1/15.0);
   // likelihood
   for(i in 1:D) {
     target += neg_binomial_2_lpmf( k_icu[i] | output_k_icu[i], phi[1]);
@@ -385,7 +377,7 @@ generated quantities{
       predicted_daily_recov[i]    = comp_diffRH[i];
       
       p_tswitch_1 = switch_lock(i,tswitch_1,r_lock_1,shift_lock_1,m_lock_1);
-      p_asymp     = switch_asymp(i,tasymp,r_test,shift_test,m_test);
+      p_asymp     = switch_asymp(i,p1,p2,p3,p4);
       
       asymp_detect[i] = p_asymp*r_d_a;
       
