@@ -49,8 +49,7 @@ Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler. 
 
 #### Test kapasitesinin parametrizasyonu 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_19_May_2020/FIGS/TESTS_estimate.png)
-
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_19_May_2020/FIGS/TESTS_estimate.png" width="625" height="525">
 
 ## Diferansiyel Denklemler
 
