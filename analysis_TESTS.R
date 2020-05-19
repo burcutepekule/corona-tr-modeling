@@ -43,13 +43,12 @@ test_fit_vec_1=as.numeric(coef(fit_1))
 
 png(filename=paste0(path2save,"/FIGS/TESTS_estimate.png"),
     width     = 6.25,
-    height    = 6.25,
+    height    = 5.25,
     units     = "in",
     res       = 1200)
-plot(allDates,fitted(fit_1),type="l", col="blue", lwd=2, xlab="gun", ylab="normalize test sayisi",ylim=range(fitted(fit_1),test_data_all_N))
-lines(allDates,test_data_all_N,pch=19,col="black",type="b", lty=2)
-legend(1, 95, legend=c("Lognormal fonksiyon", "Veri"),
-       col=c("blue", "black"), lty=1:2, cex=0.8)
+plot(allDates,fitted(fit_1),type="l", col="blue", lwd=2, xlab="gun", ylab="normalize test sayisi",ylim=range(fitted(fit_1),test_data_all_N),panel.first = grid())
+lines(allDates,test_data_all_N,pch=19,col="black",type="b", lty=2,panel.first = grid())
+legend(allDates[2],0.8,legend=c("Lognormal fonksiyon", "Veri"), col=c("blue", "black"), lty=1:2, cex=0.8)
 dev.off()
 
 
