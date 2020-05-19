@@ -92,15 +92,15 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 ## Projeksiyonlar
 
 ### Populasyon Degerleri
-### Son Guncellenme Tarihi : 17 Mayis 2020
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/figure_all_mrelax_0.png)
+### Son Guncellenme Tarihi : 18 Mayis 2020
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_19_May_2020/FIGS/figure_all_mrelax_0.png)
 
-## Efektif R
+### Efektif R
 Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
 
 Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_18_May_2020/FIGS/RE_estimate.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_19_May_2020/FIGS/RE_estimate.png)
 
 
 
