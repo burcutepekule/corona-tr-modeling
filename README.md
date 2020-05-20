@@ -110,6 +110,8 @@ Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analys
 
 ![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_19_May_2020/FIGS/RE_estimate.png)
 
+#### Referans icin : http://doi.org/10.5281/zenodo.3835635
+
 
 
 
