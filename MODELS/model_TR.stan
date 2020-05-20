@@ -180,8 +180,8 @@ parameters{
   real<lower=0, upper=1> eps_H_ICU; 
   real<lower=0, upper=1> eps_H_x; 
   real<lower=0, upper=1> eps_ICU_x;
-  real<lower=0, upper=.15> r_d_s;
-  real<lower=0, upper=.50> r_d_a;
+  real<lower=0, upper=1> r_d_s;
+  real<lower=0, upper=1> r_d_a;
   real<lower=0, upper=1> r_lock_1;
   real<lower=0, upper=1> m_lock_raw_1; // slope of quarantine implementation
   real<lower=0> shift_lock_1; // shift of quarantine implementation
