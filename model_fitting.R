@@ -67,7 +67,7 @@ M_model_TR     = stan_model("MODELS/model_TR.stan")
 ####### FITTING - DEBUG MODE
 # T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
 ####### FITTING - SHORT VERSION
-T_modelTR      = sampling(M_model_TR,data = data_list,warmup=150,iter=500,chains=4,init="random")
+T_modelTR      = sampling(M_model_TR,data = data_list,warmup=250,iter=750,chains=4,init="random")
 ####### FITTING - LONG VERSION
 # T_modelTR      = sampling(M_model_TR,data = data_list,warmup=500,iter=1500,chains=8,init="random")
 save(T_modelTR, file =paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
