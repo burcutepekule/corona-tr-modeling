@@ -62,7 +62,7 @@ dR(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>)H(t) + γ<s
 dX(t) / dt    = + γ<sub>H</sub>ε<sub>H2x</sub>H(t) +  γ<sub>ICU</sub>ε<sub>I2x</sub>ICU(t) <br/>
 dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><sup>a</sup>)γ<sub>s</sub>I(t)<br/>
 
-## Kompartmanlar arasi gecisi anlatan diagram
+## Kompartmanlar arasi gecisi anlatan model diyagrami
 
 <img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/MODEL_DESCP.png" width="575" height="301">
 
