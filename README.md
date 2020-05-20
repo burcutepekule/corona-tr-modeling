@@ -62,6 +62,10 @@ dR(t) / dt    = + γ<sub>H</sub>(1-ε<sub>H2I</sub>-ε<sub>H2x</sub>)H(t) + γ<s
 dX(t) / dt    = + γ<sub>H</sub>ε<sub>H2x</sub>H(t) +  γ<sub>ICU</sub>ε<sub>I2x</sub>ICU(t) <br/>
 dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><sup>a</sup>)γ<sub>s</sub>I(t)<br/>
 
+## Kompartmanlar arasi gecisi anlatan diagram
+
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/MODEL_DESCP.png" width="575" height="301">
+
 ## Parametre kestirimi icin kullanilan sinyaller
 
 - Gunluk vaka sayisi toplam vaka sayisi kompartmaninin (C(t)) birinci turevine (Gunluk C(t)) oturtulur. <br/>
