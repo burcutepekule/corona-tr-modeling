@@ -4,7 +4,7 @@
 
 | Notasyon   | Tanim | 
 | ------------- |-------------| 
-| S | (Sensitive) Henuz enfekte olmamis, hastaliga acik bireyler. | 
+| S | (Susceptible) Henuz enfekte olmamis, hastaliga acik bireyler. | 
 | E | (Exposed) Enfekte olmus, fakat henuz bulasici olmayan bireyler. | 
 | I | (Infected) Populasyondaki bulasici bireyler. | 
 | H | (Hospitilized) Hastanedeki (servis) bireyler. | 
