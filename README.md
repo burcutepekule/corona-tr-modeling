@@ -39,7 +39,7 @@ Karantina etkisi (r<sub>lock</sub>(t)): Zamana bagli sigmoidal bir fonskiyon ola
 r<sub>lock</sub>(t) = r<sub>L</sub> + (1-r<sub>L</sub>) / (1+ exp[m<sub>L</sub>(t-t<sub>L</sub>-s<sub>L</sub>)])
 
 Gevseme etkisi (r<sub>relax</sub>(t)) : Zamana bagli sigmoidal bir fonskiyon olarak modellenmistir. <br/>
-r<sub>relax</sub>(t) = r<sub>R</sub> + 1/(1/(1-r<sub>R</sub>) + exp[-m<sub>R</sub>(t-t<sub>R</sub>-s<sub>R</sub>)])
+r<sub>relax</sub>(t) = r<sub>L</sub> + 1/(1/(1-r<sub>L</sub>) + exp[-m<sub>R</sub>(t-t<sub>R</sub>-s<sub>R</sub>)])
 
 Bulastirma carpani (coeff<sub>R</sub>(t)) : Zamana bagli bulastirma katsayisi carpani (karantina ya da gevseme durumuna gore farkli degerler alir)
 
