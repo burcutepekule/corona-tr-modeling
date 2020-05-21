@@ -73,5 +73,8 @@ T_modelTR      = sampling(M_model_TR,data = data_list,warmup=250,iter=750,chains
 save(T_modelTR, file =paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
 source("analysis_plots.R")
 source("analysis_chains.R")
+source("analysis_TEST.R")
+source("analysis_RE.R")
+
 
 
