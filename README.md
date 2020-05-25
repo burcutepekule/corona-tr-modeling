@@ -87,6 +87,7 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains.R``. 
 - Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots.R``. 
 - Gunluk vaka ve seri aralik dagilimi kullanilarak efektif R'in hesaplandigi kod dosyasi : ``analysis_RE.R``. 
+- Gunluk test sayisi ve pozitiflik oranina gore duzeltilmis efektif R'in hesaplandigi kod dosyasi : ``analysis_RE_CORR.R``. 
 - Normalize edilmis test kapasitesinin lognormal fonskiyona oturtularak gorsellestirildigi kod dosyasi : ``analysis_TESTS.R``. 
 
 ## Kullanim
