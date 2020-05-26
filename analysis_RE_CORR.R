@@ -30,7 +30,7 @@ data_end     = ymd(date_end)
 # CORRECTED FOR THE NUMBER OF TESTS
 test_data_all   = as.numeric(unlist(test_data_all))
 newTestData     = daily_cases_data;
-newTestData[47:76] = max(test_data_all)*daily_cases_data[-(1:46)]/test_data_all[-(1:45)]
+newTestData[47:length(daily_cases_data)] = max(test_data_all)*daily_cases_data[-(1:46)]/test_data_all[-(1:45)]
 daily_cases_data   = newTestData
 plot(as.incidence(daily_cases_data[-1], dates = allDates_agg[-1]))
 
