@@ -1,5 +1,5 @@
 # Setup
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd(getwd())
 source("setup.R")
 library(anytime)
 library(readr)

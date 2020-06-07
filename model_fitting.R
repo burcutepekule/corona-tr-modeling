@@ -1,6 +1,6 @@
 # Setup
 rm(list=ls())
-setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
+setwd(getwd())
 path2save = paste0("OUT_",format(Sys.time(), "%d_%b_%Y"));
 dir.create(path2save)
 dir.create(paste0(path2save,"/CSVS/"))
@@ -61,9 +61,9 @@ data_list = list(
   r_c=0 #dummy control
 )
 # # IF .rds NOT compiled (run in case of change in model)
-M_model_TR     = stan_model("MODELS/model_TR.stan")
+# M_model_TR     = stan_model("MODELS/model_TR.stan")
 # # IF .rds  compiled 
-# M_model_TR = readRDS("MODELS/model_TR.rds")
+M_model_TR = readRDS("MODELS/model_TR.rds")
 ####### FITTING - DEBUG MODE
 # T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
 ####### FITTING - SHORT VERSION
