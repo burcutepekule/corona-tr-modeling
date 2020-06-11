@@ -49,7 +49,7 @@ Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler. 
 
 #### Test kapasitesinin parametrizasyonu 
-<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_07_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
 
 ## Diferansiyel Denklemler
 
@@ -102,14 +102,17 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 ### Son Guncellenme Tarihi : 7 Haziran 2020
 
 ### Populasyon Degerleri
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_07_Jun_2020/FIGS/figure_all_mrelax_0.png)
+
+Gevseme analizi : Asagidaki iki figur de yaklasik uc ay sonra (Agustos sonu) ayni olcude gevsemeye erisilecegi, fakat biri digerinden baslangic evresinde iki kat hizli gevsemeyle olacagi varsayilarak hazirlandi.  Ikinci durum (sag) yeni bir karantinaya sebep olabilir. Re'nin 1'in uzerinde ne kadar uzun sure kaldigi, 1'in uzerine ne kadar ciktigi, ve hangi hizla ciktigi cok onemli. 
+
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/Gevseme_Analiz_15TEM.png)
 
 ### Efektif R
 Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
 
 Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_07_Jun_2020/FIGS/RE_estimate.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/RE_estimate.png)
 
 #### Referans icin : http://doi.org/10.5281/zenodo.3835635
 
