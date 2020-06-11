@@ -16,7 +16,7 @@ source("setup.R")
 
 plot(as.incidence(daily_cases_data[-1], dates = allDates_agg[-1]))
 
-m_relax_in = 0 
+m_relax_in = 1
 load(paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
      
 parameterSummary = summary(T_modelTR, c("gamma_s","tau"), probs = c(0.025, 0.25, 0.50, 0.75, 0.975));

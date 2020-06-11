@@ -26,7 +26,7 @@ data_control_2 = ymd("2020-04-03") # second lockdown (assuming 2 lockdowns)
 date_control_2 = ymd("2020-04-03")
 date_control_3 = ymd("2020-03-21") # mid lockdown (assuming 1 lockdown)
 data_control_3 = ymd("2020-03-21")
-date_relax     = ymd("2020-05-11") # relaxation (if any)
+date_relax     = ymd("2020-06-01") # relaxation (if any)
 
 test_data_all   = as.numeric(unlist(test_data_all))
 test_data_all_N = test_data_all/max(test_data_all)
