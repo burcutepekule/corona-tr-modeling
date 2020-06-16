@@ -2,12 +2,9 @@ functions {
   real switch_lock(real t, real t_lock, real r_lock, real shift_lock, real m_lock) {
     return(r_lock+(1-r_lock)/(1+exp(m_lock*(t-t_lock-shift_lock))));
   }
-  real switch_relax(real t, real t_relax, real r_relax, real m_relax, real mult, real r_end) {
-    return(r_relax+1./(1/(r_end-r_relax)+exp(-m_relax*(t-t_relax-(mult*(1/m_relax)*(1-m_relax)+1/m_relax)))));
+  real switch_relax(real t, real t_relax, real r_relax, real shift_relax, real m_relax, real r_end) {
+    return(r_relax+1./(1/(r_end-r_relax)+exp(-m_relax*(t-t_relax-shift_relax))));
   }
-  // real switch_relax(real t, real t_relax, real r_relax, real s_relax, real m_relax, real r_end) {
-    // return(r_relax+1./(1/(r_end-r_relax)+exp(-m_relax*(t-t_relax-s_relax))));
-  //}
     real switch_asymp(real t, real K, real mu, real sig) {
       real out;
       real piVal = 3.141593;
@@ -29,10 +26,9 @@ functions {
     ) {
       real tlock_1   = x_r[1]; // lockdown time 1
       real trelax_1  = x_r[2];
-      real r_end     = x_r[3];
-      real K         = x_r[4];
-      real mu        = x_r[5];
-      real sig       = x_r[6];
+      real K         = x_r[3];
+      real mu        = x_r[4];
+      real sig       = x_r[5];
       int  mult      = x_i[1]; //the only fixed integer is the reduction in inf due to being chronic
       real p_lock_1;
       real p_relax_1;
@@ -55,10 +51,11 @@ functions {
       real shift_lock_1;
       real m_lock_1;
       real r_relax_1; // reduction in transmission rate after lockdown
+      real shift_relax_1;
       real m_relax_1;    
       real coeffR;
       real r_test;
-      
+      real r_end;
       
       // Free parameters
       pi          = theta[1];
@@ -73,12 +70,14 @@ functions {
       r_d_s       = theta[10];
       r_d_a       = theta[11];
       r_lock_1    = theta[12];
-      shift_lock_1= theta[13];
-      m_lock_1    = theta[14];
-      m_relax_1   = theta[15];
-      
+      shift_lock_1 = theta[13];
+      shift_relax_1= theta[14];
+      m_lock_1     = theta[15];
+      m_relax_1    = theta[16];
+      r_end        = theta[17];
+
       p_lock_1    = switch_lock(t,tlock_1,r_lock_1,shift_lock_1,m_lock_1);
-      p_relax_1   = switch_relax(t,trelax_1,r_lock_1,m_relax_1,mult,r_end);
+      p_relax_1   = switch_relax(t,trelax_1,r_lock_1,shift_relax_1,m_relax_1,r_end);
       p_asymp     = switch_asymp(t,K,mu,sig);
       
       if(p_relax_1>p_lock_1){
@@ -119,7 +118,6 @@ data {
   int pop_t; // total population
   real tlock_1; 
   real trelax_1;
-  real r_end;
   real K;
   real mu;
   real sig;
@@ -142,7 +140,7 @@ data {
   real p_r_d_s[2];
   real p_r_d_a[2];
   real p_r_lock_1[2];
-  real p_r_mr[2];
+  real p_r_end[2];
   real p_phi;
   
   // Simulation
@@ -156,15 +154,14 @@ data {
 }
 
 transformed data {
-  real x_r[6]; 
+  real x_r[5]; 
   int x_i[1]; // this is for mult
   real init[8] = rep_array(1e-9,8); // initial values -> this is for speed, keep it like that
   x_r[1] = tlock_1;
   x_r[2] = trelax_1;
-  x_r[3] = r_end;
-  x_r[4] = K;
-  x_r[5] = mu;
-  x_r[6] = sig;
+  x_r[3] = K;
+  x_r[4] = mu;
+  x_r[5] = sig;
   x_i[1] = mult;
 }
 
@@ -180,16 +177,19 @@ parameters{
   real<lower=0, upper=1> eps_ICU_x;
   real<lower=0, upper=1> r_d_s;
   real<lower=0, upper=1> r_d_a;
-  real<lower=0, upper=r_end> r_lock_1;
+  real<lower=0, upper=1> r_lock_1;
+  real<lower=0, upper=1> r_end_raw;
   real<lower=0, upper=1> m_lock_raw_1; // slope of quarantine implementation
   real<lower=0, upper=1> m_relax_raw_1; // slope of quarantine implementation
   real<lower=0> shift_lock_1; // shift of quarantine implementation
+  real<lower=0> shift_relax_1; // shift of quarantine implementation
   real<lower=1> phi[3]; // dispersion parameters
 }
 transformed parameters {
   real m_lock_1  = m_lock_raw_1+0.1;
   real m_relax_1 = m_relax_raw_1+0.1;
-  real theta[15]; // vector of parameters
+  real r_end = r_end_raw+r_lock_1;
+  real theta[17]; // vector of parameters
   real y[D,8]; // raw ODE output
   vector[D] output_ICU;
   vector[D] output_cumC;
@@ -201,7 +201,7 @@ transformed parameters {
   
   theta = {pi,R0,tau,gamma_s,gamma_H,gamma_ICU,eps_H_ICU,eps_H_x,
   eps_ICU_x,r_d_s,r_d_a,
-  r_lock_1,shift_lock_1,m_lock_1,m_relax_1};
+  r_lock_1,shift_lock_1,shift_relax_1,m_lock_1,m_relax_1,r_end};
   // run ODE solver
   y = integrate_ode_bdf(
     SEIR, // ODE function
@@ -238,10 +238,12 @@ model {
   r_d_s ~ beta(p_r_d_s[1],p_r_d_s[2]);
   r_d_a ~ beta(p_r_d_a[1],p_r_d_a[2]);
   r_lock_1 ~ beta(p_r_lock_1[1],p_r_lock_1[2]);
+  r_end_raw ~ beta(p_r_end[1],p_r_end[2]);
   phi ~ exponential(p_phi);
   m_lock_raw_1 ~ beta(1,1); 
   shift_lock_1 ~ exponential(1/15.0);
-  m_relax_raw_1 ~ beta(p_r_mr[1],p_r_mr[2]); 
+  m_relax_raw_1 ~ beta(1,1); 
+  shift_relax_1 ~ exponential(1/15.0);
 
   // likelihood
   for(i in 1:D) {

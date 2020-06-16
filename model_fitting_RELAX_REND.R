@@ -16,7 +16,7 @@ rstan_options(auto_write = TRUE)
 source("prepare_data.R")
 source("setup.R")
 
-m_relax_in   = 2; #indicator for using relaxation
+m_relax_in   = 3; #indicator for using relaxation
 days2add     = 15; #ADDITIONAL DAYS FOR SIMULATION
 date_simul   = date_end + days2add;
 
@@ -24,7 +24,6 @@ data_list = list(
   pop_t=pop_size,
   tlock_1=as.numeric(date_control_1-date_data+1),
   trelax_1=as.numeric(date_relax-date_data+1),
-  r_end=0.35,
   K   = test_fit_vec_1[1],
   mu  = test_fit_vec_1[2],
   sig = test_fit_vec_1[3],
@@ -46,7 +45,7 @@ data_list = list(
   p_r_d_s     = c(2,10),
   p_r_d_a     = c(2,10),
   p_r_lock_1  = c(1,1),
-  p_r_mr      = c(1,30),
+  p_r_end     = c(1,30),
   p_phi       = 1/100,
 
   t0=0,
@@ -58,9 +57,9 @@ data_list = list(
   
 )
 # # IF .rds NOT compiled (run in case of change in model)
-# M_model_TR     = stan_model("MODELS/model_TR_RELAX.stan")
+# c
 # # IF .rds  compiled 
-M_model_TR = readRDS("MODELS/model_TR_RELAX.rds")
+M_model_TR = readRDS("MODELS/model_TR_RELAX_REND.rds")
 ####### FITTING - DEBUG MODE
 # T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
 ####### FITTING - SHORT VERSION

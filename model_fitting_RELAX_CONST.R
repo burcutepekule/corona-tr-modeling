@@ -16,7 +16,7 @@ rstan_options(auto_write = TRUE)
 source("prepare_data.R")
 source("setup.R")
 
-days2add     = 240; #ADDITIONAL DAYS FOR SIMULATION
+days2add     = 120; #ADDITIONAL DAYS FOR SIMULATION
 date_simul   = date_end + days2add;
 
 # SCENARIO 1

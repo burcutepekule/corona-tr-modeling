@@ -10,7 +10,7 @@ dir.create(paste0(path2save,"/RDATA/"))
 args <- commandArgs(TRUE)
 print(args)
 
-m_relax_in = 0 # slope of relaxation -> if 0, no relaxation
+m_relax_in = 65 # slope of relaxation -> if 0, no relaxation
 
 library(rstan)
 library(zoo)
@@ -20,7 +20,7 @@ rstan_options(auto_write = TRUE)
 source("prepare_data.R")
 source("setup.R")
 
-days2add     = 45; #ADDITIONAL DAYS FOR SIMULATION
+days2add     = 240; #ADDITIONAL DAYS FOR SIMULATION
 date_simul   = date_end + days2add;
 
 data_list = list(
@@ -61,9 +61,11 @@ data_list = list(
   r_c=0 #dummy control
 )
 
-load("/Users/burcu/Dropbox/corona-tr-modeling/OUT_31_May_2020/RDATA/T_modelTR_mrelax_0.RData")
+# load("/Users/burcu/Dropbox/corona-tr-modeling/OUT_31_May_2020/RDATA/T_modelTR_mrelax_0.RData")
+load("/Users/burcu/Dropbox/corona-tr-modeling/OUT_10_Jun_2020/RDATA/T_modelTR_mrelax_6.RData")
+
 T_modelTR_old = T_modelTR
-model_end = ymd("2020-05-31")
+model_end = ymd("2020-06-10")
 D_old=as.numeric(model_end-date_data+1)+days2add
 
 pp = c("predicted_daily_cases","predicted_daily_deaths","predicted_current_icu")
@@ -92,6 +94,20 @@ populasyon_data_old =factor(rep(pp,each=old_data_length),levels=pp,
 observed_data_old   = c(daily_cases_data[1:old_data_length],daily_deaths_data[1:old_data_length],icu_data[1:old_data_length]);
 observed_dates_old  = c(allDates_agg[1:old_data_length],allDates_agg[1:old_data_length],allDates_agg[1:old_data_length]);
 agg_data_all_old    = tibble(all_dates=observed_dates_old,all_data=observed_data_old,populasyon=populasyon_data_old);
+
+
+date_plot_until  = ymd("2020-06-18");
+plot_length      = as.numeric(date_plot_until-date_data+1);
+p_cases          = model_output_fitted_old %>% filter(type=="predicted_daily_cases")
+p_deaths         = model_output_fitted_old %>% filter(type=="predicted_daily_deaths")
+p_icu            = model_output_fitted_old %>% filter(type=="predicted_current_icu")
+
+p_cases = p_cases[1:plot_length,]
+p_deaths= p_deaths[1:plot_length,]
+p_icu   = p_icu[1:plot_length,]
+
+model_output_fitted_old = bind_rows(p_cases,p_deaths,p_icu)
+
 
 # # 
 ggplot() +
