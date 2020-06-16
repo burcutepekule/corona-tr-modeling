@@ -39,7 +39,7 @@ Karantina etkisi (r<sub>lock</sub>(t)): Zamana bagli sigmoidal bir fonskiyon ola
 r<sub>lock</sub>(t) = r<sub>L</sub> + (1-r<sub>L</sub>) / (1+ exp[m<sub>L</sub>(t-t<sub>L</sub>-s<sub>L</sub>)])
 
 Gevseme etkisi (r<sub>relax</sub>(t)) : Zamana bagli sigmoidal bir fonskiyon olarak modellenmistir. <br/>
-r<sub>relax</sub>(t) = r<sub>L</sub> + 1/(1/(1-r<sub>L</sub>) + exp[-m<sub>R</sub>(t-t<sub>R</sub>-s<sub>R</sub>)])
+r<sub>relax</sub>(t) = r<sub>L</sub> + 1/(1/(r<sub>end</sub>-r<sub>L</sub>) + exp[-m<sub>R</sub>(t-t<sub>R</sub>-s<sub>R</sub>)])
 
 Bulastirma carpani (coeff<sub>R</sub>(t)) : Zamana bagli bulastirma katsayisi carpani (karantina ya da gevseme durumuna gore farkli degerler alir)
 
@@ -49,7 +49,7 @@ Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler. 
 
 #### Test kapasitesinin parametrizasyonu 
-<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_16_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
 
 ## Diferansiyel Denklemler
 
@@ -80,6 +80,7 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - Verilerin oturtulmasi surecinde Hamilton MCMC algoritmasi kullanilmistir.
 
 ## Kod dosyalari
+### Gevseme goz onunde bulundurlmadan
 
 - Kosulmasi gereken ana kod dosyasi : ``model_fitting.R``. 
 - Verinin on islenmesi icin kosulan kod dosyasi : ``prepare_data.R``. 
@@ -90,6 +91,17 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - Gunluk test sayisi ve pozitiflik oranina gore duzeltilmis efektif R'in hesaplandigi kod dosyasi : ``analysis_RE_CORR.R``. 
 - Normalize edilmis test kapasitesinin lognormal fonskiyona oturtularak gorsellestirildigi kod dosyasi : ``analysis_TESTS.R``. 
 
+### Gevseme goz onunde bulundurularak
+
+- Kosulmasi gereken ana kod dosyasi : ``model_fitting_RELAX_REND.R``. 
+- Verinin on islenmesi icin kosulan kod dosyasi : ``prepare_data.R``. 
+- Gerekli fonksiyonlarin cagirildigi kod dosyasi : ``setup.R``. 
+- MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains_RELAX_REND.R``. 
+- Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots_RELAX_REND.R``. 
+- Gunluk vaka ve seri aralik dagilimi kullanilarak efektif R'in hesaplandigi kod dosyasi : ``analysis_RE.R``. 
+- Gunluk test sayisi ve pozitiflik oranina gore duzeltilmis efektif R'in hesaplandigi kod dosyasi : ``analysis_RE_CORR.R``. 
+- Normalize edilmis test kapasitesinin lognormal fonskiyona oturtularak gorsellestirildigi kod dosyasi : ``analysis_TESTS.R``.
+
 ## Kullanim
 
 - Model ciktilarinin elde edilmesi, gorsellestirilmesi, ve MCMC sonuclarinin analizi icin yalnizca ``model_fitting.R`` dosyasinin kosulmasi yeterlidir. Bu kod dosyasi ``~/DATA`` alt klasorunden ``~/CORONA_TR.csv`` adli Turkiye COVID-19 verilerinin tutuldugu csv dosyasini okuyarak veriyi modele oturtur.
@@ -99,20 +111,22 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
 
 ## Projeksiyonlar
-### Son Guncellenme Tarihi : 7 Haziran 2020
+### Son Guncellenme Tarihi : 16 Haziran 2020
 
 ### Populasyon Degerleri
 
-Gevseme analizi : Asagidaki iki figur de yaklasik uc ay sonra (Agustos sonu) ayni olcude gevsemeye erisilecegi, fakat biri digerinden baslangic evresinde iki kat hizli gevsemeyle olacagi varsayilarak hazirlandi.  Ikinci durum (sag) yeni bir karantinaya sebep olabilir. Re'nin 1'in uzerinde ne kadar uzun sure kaldigi, 1'in uzerine ne kadar ciktigi, ve hangi hizla ciktigi cok onemli. 
+Gevseme analizi : Gevseme 1 Haziran merkezli, karantina etkisine benzeyen bir sigmoidal fonksiyon olarak modellenmistir.  r<sub>end</sub> gevsemenin erisecegi maksimum katsayi temsil etmektedir. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/Gevseme_Analiz_15TEM.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_16_Jun_2020/FIGS/figure_Re_mrelax_3.png)
+
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_16_Jun_2020/FIGS/figure_all_mrelax_3.png)
 
 ### Efektif R
 Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
 
 Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_10_Jun_2020/FIGS/RE_estimate.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_16_Jun_2020/FIGS/RE_estimate.png)
 
 #### Referans icin : http://doi.org/10.5281/zenodo.3835635
 
