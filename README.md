@@ -115,7 +115,7 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 
 ### Populasyon Degerleri
 
-Gevseme analizi : Gevseme 1 Haziran merkezli, karantina etkisine benzeyen bir sigmoidal fonksiyon olarak modellenmistir.  r<sub>end</sub> gevsemenin erisecegi maksimum katsayi temsil etmektedir. 
+Gevseme analizi : Gevseme 1 Haziran merkezli, karantina etkisine benzeyen bir sigmoidal fonksiyon olarak modellenmistir.  r<sub>end</sub> gevsemenin erisecegi maksimum katsayiyi temsil etmektedir. 
 
 ![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_16_Jun_2020/FIGS/figure_Re_mrelax_3.png)
 
