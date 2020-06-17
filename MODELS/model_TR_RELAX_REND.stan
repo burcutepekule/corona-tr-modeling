@@ -335,7 +335,7 @@ generated quantities{
       predicted_cum_cases[i]      = comp_C[i];
       
       p_lock_1  = switch_lock(i,tlock_1,r_lock_1,shift_lock_1,m_lock_1);
-      p_relax_1 = switch_relax(i,trelax_1,r_lock_1,m_relax_1,mult,r_end);
+      p_relax_1 = switch_relax(i,trelax_1,r_lock_1,shift_relax_1,m_relax_1,r_end);
       p_asymp   = switch_asymp(i,K,mu,sig);
       
       asymp_detect[i] = p_asymp*r_d_a;

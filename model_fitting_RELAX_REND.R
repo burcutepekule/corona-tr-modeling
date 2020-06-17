@@ -16,7 +16,7 @@ rstan_options(auto_write = TRUE)
 source("prepare_data.R")
 source("setup.R")
 
-m_relax_in   = 3; #indicator for using relaxation
+m_relax_in   = 1; #indicator for using relaxation
 days2add     = 15; #ADDITIONAL DAYS FOR SIMULATION
 date_simul   = date_end + days2add;
 
@@ -27,7 +27,7 @@ data_list = list(
   K   = test_fit_vec_1[1],
   mu  = test_fit_vec_1[2],
   sig = test_fit_vec_1[3],
-  mult= 3,
+  mult= 0,
   D=as.numeric(date_end-date_data+1),
   k_daily_cases  = daily_cases_data,
   k_icu          = icu_data,
@@ -45,7 +45,7 @@ data_list = list(
   p_r_d_s     = c(2,10),
   p_r_d_a     = c(2,10),
   p_r_lock_1  = c(1,1),
-  p_r_end     = c(1,30),
+  p_r_end     = c(1,20),
   p_phi       = 1/100,
 
   t0=0,
@@ -57,17 +57,17 @@ data_list = list(
   
 )
 # # IF .rds NOT compiled (run in case of change in model)
-# c
+# M_model_TR     = stan_model("MODELS/model_TR_RELAX_REND.stan")
 # # IF .rds  compiled 
 M_model_TR = readRDS("MODELS/model_TR_RELAX_REND.rds")
 ####### FITTING - DEBUG MODE
 # T_modelTR      = sampling(M_model_TR,data = data_list,iter=5,chains=1,init="random") 
 ####### FITTING - SHORT VERSION
-T_modelTR      = sampling(M_model_TR,data = data_list,warmup=150,iter=500,chains=4,init="random")
+T_modelTR      = sampling(M_model_TR,data = data_list,warmup=250,iter=750,chains=4,init="random")
 ####### FITTING - LONG VERSION
 # T_modelTR      = sampling(M_model_TR,data = data_list,warmup=500,iter=1500,chains=8,init="random")
 save(T_modelTR, file =paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
-source("analysis_plots_RELAX.R")
-source("analysis_chains_RELAX.R")
+source("analysis_plots_RELAX_REND.R")
+source("analysis_chains_RELAX_REND.R")
 
 
