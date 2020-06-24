@@ -49,7 +49,7 @@ Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler. 
 
 #### Test kapasitesinin parametrizasyonu 
-<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_23_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
 
 ## Diferansiyel Denklemler
 
@@ -111,22 +111,22 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 - Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
 
 ## Projeksiyonlar
-### Son Guncellenme Tarihi : 23 Haziran 2020
+### Son Guncellenme Tarihi : 24 Haziran 2020
 
 ### Populasyon Degerleri
 
 Gevseme analizi : Gevseme 1 Haziran merkezli, karantina etkisine benzeyen bir sigmoidal fonksiyon olarak modellenmistir.  r<sub>end</sub> gevsemenin erisecegi maksimum katsayiyi temsil etmektedir. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_23_Jun_2020/FIGS/figure_Re_mrelax_2.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/figure_Re_mrelax_2.png)
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_23_Jun_2020/FIGS/figure_all_mrelax_2.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/figure_all_mrelax_2.png)
 
 ### Efektif R
 Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
 
 Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_23_Jun_2020/FIGS/RE_estimate.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/RE_estimate.png)
 
 #### Referans icin : http://doi.org/10.5281/zenodo.3835635
 
