@@ -49,7 +49,7 @@ Gevseme durumunda coeff<sub>R</sub>(t) = (1/N)r<sub>relax</sub>(t)
 Test kapasitesi etkisi (r<sub>test</sub>(t)) : Zamana bagli lognormal bir fonksiyon olarak modellenmistir. Asemptomatiklerin detekte olma oranini etkiler. 
 
 #### Test kapasitesinin parametrizasyonu 
-<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/TESTS_estimate.png" width="625" height="525">
+<img src="https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_09_Jul_2020/FIGS/TESTS_estimate.png" width="625" height="525">
 
 ## Diferansiyel Denklemler
 
@@ -93,11 +93,28 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 
 ### Gevseme goz onunde bulundurularak
 
-- Kosulmasi gereken ana kod dosyasi : ``model_fitting_RELAX_REND.R``. 
+- Kosulmasi gereken ana kod dosyasi : ``model_fitting_RELAX.R``. 
 - Verinin on islenmesi icin kosulan kod dosyasi : ``prepare_data.R``. 
 - Gerekli fonksiyonlarin cagirildigi kod dosyasi : ``setup.R``. 
-- MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains_RELAX_REND.R``. 
-- Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots_RELAX_REND.R``. 
+- MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains_RELAX.R``. 
+- Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots_RELAX.R``. 
+- Gunluk vaka ve seri aralik dagilimi kullanilarak efektif R'in hesaplandigi kod dosyasi : ``analysis_RE.R``. 
+- Gunluk test sayisi ve pozitiflik oranina gore duzeltilmis efektif R'in hesaplandigi kod dosyasi : ``analysis_RE_CORR.R``. 
+- Normalize edilmis test kapasitesinin lognormal fonskiyona oturtularak gorsellestirildigi kod dosyasi : ``analysis_TESTS.R``.
+
+### Gevseme ve Yogun bakimdan gozlenen olum sayisindaki dusus goz onunde bulundurularak
+
+Son veriler dogrultusunda yogun bakimdaki hasta sayisi artarken olumlerde gozlenen sabit / azalan trend sonucu yogun bakimdaki hastalarin olum oraninin zamana bagli exponensiyel azalan bir fonksiyon olarak modellendigi versiyondur. Yogun bakimdan gozlenen olum orani, 
+
+ε<sub>I2x</sub>(t) = ε<sub>I2x</sub><sup>*</sup> x exp(-t/K<sub>x</sub>)
+
+seklinde modellenmistir. Bu versiyonda yalnizca yogun bakimdan olum oldugu varsayilmis, servisten olan olum orani sifira esitlenmistir. 
+
+- Kosulmasi gereken ana kod dosyasi : ``model_fitting_RELAX_EPSX.R``. 
+- Verinin on islenmesi icin kosulan kod dosyasi : ``prepare_data.R``. 
+- Gerekli fonksiyonlarin cagirildigi kod dosyasi : ``setup.R``. 
+- MCMC sonuclarinin analiz edildigi kod dosyasi : ``analysis_chains_RELAX_EPSX.R``. 
+- Model ciktilarinin gorsellestirildigi kod dosyasi : ``analysis_plots_RELAX_EPSX.R``. 
 - Gunluk vaka ve seri aralik dagilimi kullanilarak efektif R'in hesaplandigi kod dosyasi : ``analysis_RE.R``. 
 - Gunluk test sayisi ve pozitiflik oranina gore duzeltilmis efektif R'in hesaplandigi kod dosyasi : ``analysis_RE_CORR.R``. 
 - Normalize edilmis test kapasitesinin lognormal fonskiyona oturtularak gorsellestirildigi kod dosyasi : ``analysis_TESTS.R``.
@@ -117,16 +134,16 @@ dC(t) / dt    = + (r<sub>d</sub><sup>s</sup> + r<sub>test</sub>(t)r<sub>d</sub><
 
 Gevseme analizi : Gevseme 1 Haziran merkezli, karantina etkisine benzeyen bir sigmoidal fonksiyon olarak modellenmistir.  r<sub>end</sub> gevsemenin erisecegi maksimum katsayiyi temsil etmektedir. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/figure_Re_mrelax_2.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_09_Jul_2020/FIGS/figure_Re_mrelax_4.png)
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/figure_all_mrelax_2.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_09_Jul_2020/FIGS/figure_all_mrelax_4.png)
 
 ### Efektif R
 Efektif R iki sekilde hesaplanabilir. Birincisi model ciktisina gore yapilan efektif R hesaplamasidir, fakat bu hesaplama oturtulan egriye gore yapildigi icin son gunlerdeki vaka sayisindaki dalgalanmalarin etkisini icermemektedir. 
 
 Dalgalanmalari hesaba katan, daha hassas bir efektif R hesaplamasi icin ``analysis_RE.R`` kod dosyasi kullanilabilir. Bu dosya modele gore hesaplanan seri aralik dagilimini ve gunluk vaka sayisindaki degisimi kullanarak zamana bagli bir efektif R kestirimi yapar. 
 
-![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_24_Jun_2020/FIGS/RE_estimate.png)
+![Folder Structure](https://github.com/burcutepekule/corona-tr-modeling/blob/master/OUT_09_Jul_2020/FIGS/RE_estimate.png)
 
 #### Referans icin : http://doi.org/10.5281/zenodo.3835635
 
