@@ -18,7 +18,7 @@ plot(as.incidence(daily_cases_data[-1], dates = allDates_agg[-1]))
 
 m_relax_in = 1
 # load(paste0(path2save,"/RDATA/T_modelTR_mrelax_",m_relax_in,".RData"))
-load("/Users/burcu/Dropbox/corona-tr-modeling/OUT_24_Jun_2020/RDATA/T_modelTR_mrelax_2.RData")
+load("/Users/burcu/Dropbox/corona-tr-modeling/OUT_09_Jul_2020/RDATA/T_modelTR_mrelax_3.RData")
 
      
 parameterSummary = summary(T_modelTR, c("gamma_s","tau"), probs = c(0.025, 0.25, 0.50, 0.75, 0.975));
