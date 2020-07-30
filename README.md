@@ -128,7 +128,7 @@ seklinde modellenmistir. Bu versiyonda yalnizca yogun bakimdan olum oldugu varsa
 - Hamiltonian MCMC hesaplama acisindan kaynak kullanimi yuksek olan bir algoritma oldugu icin kosma suresi kullanilan isinma evresi (warmup), iterasyon sayisi (iter), ve zincir (chains) sayisina gore degisecektir. Bu parametreler ``model_fitting.R`` dosyasinin icinden degistirilebilir, ve kosma suresi isinma evresi ve iterasyon sayisi kisaltilarak azaltilabilir. Fakat bu kisaltma sonuclarin guven araligini ve sonsal dagilimlarin yakinsama performasini etkileyebilir.
 
 ## Projeksiyonlar
-### Son Guncellenme Tarihi : 30 Temmuz 2020
+### Son Guncellenme Tarihi : 28 Temmuz 2020
 
 ### Populasyon Degerleri
 
